@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: stdcodetest
+Version: 0.2.0
+Summary: Standardized testing and sequential state management for AI agents.
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# stdcodetest
+Standardized Testing Architecture.
