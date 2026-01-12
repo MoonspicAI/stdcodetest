@@ -1,0 +1,3 @@
+[console_scripts]
+stdcodetest = stdcodetest.manager:cli_main
+stdcodetest-gui = stdcodetest.gui:gui_main
