@@ -10,16 +10,26 @@ class TestManager:
         self.mode = mode
 
     def create_std_test(self, test_name: str, replace: bool = False) -> Path:
-        test_dir = self.tests_base / test_name
-        if replace and test_dir.exists(): 
+        """Creates a test structure relative to the tests_root."""
+        target_path = self.tests_base / test_name
+        return self._build_structure(target_path, replace)
+
+    def create_std_test_from_path(self, absolute_path: str | Path, replace: bool = False) -> Path:
+        """Creates a test structure at the specific absolute path provided."""
+        target_path = Path(absolute_path).resolve()
+        return self._build_structure(target_path, replace)
+
+    def _build_structure(self, test_dir: Path, replace: bool) -> Path:
+        """Internal shared logic to scaffold folders and config."""
+        if replace and test_dir.exists():
             shutil.rmtree(test_dir)
         
         folders = ModeRegistry.get_folders(self.mode)
         for folder in folders:
             (test_dir / folder).mkdir(parents=True, exist_ok=True)
 
+        # Config deployment
         meta_folder = next((f for f in folders if "META_CONFIG" in f), folders[2])
-        
         config = {
             "std_version": "0.2.0",
             "mode": self.mode,
@@ -32,11 +42,9 @@ class TestManager:
         
         return test_dir
 
-    def _get_env_hint(self):
-        hints = {"vue": "node-18", "pytorch": "python-3.10", "default": "python-3.8"}
-        for k, v in hints.items():
-            if k in self.mode: return v
-        return hints["default"]
+    def _get_env_hint(self) -> str:
+        hints = {"vue": "node-18", "pytorch": "python-3.10"}
+        return next((v for k, v in hints.items() if k in self.mode), "python-3.8")
 
 def cli_main():
     print("stdcodetest CLI: Standardized Testing Framework for AI.")
