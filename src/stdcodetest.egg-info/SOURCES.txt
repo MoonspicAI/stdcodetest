@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/stdcodetest/__init__.py
+src/stdcodetest/gui.py
+src/stdcodetest/manager.py
+src/stdcodetest/registry.py
+src/stdcodetest.egg-info/PKG-INFO
+src/stdcodetest.egg-info/SOURCES.txt
+src/stdcodetest.egg-info/dependency_links.txt
+src/stdcodetest.egg-info/entry_points.txt
+src/stdcodetest.egg-info/top_level.txt
